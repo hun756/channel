@@ -21,7 +21,7 @@ public class BoundedChannel<T> : IChannel<T>
         _readSemaphore.Release();
     }
 
-    public async ValueTask<T> ReadAsync(CancellationToken cancellationToken = default)
+    public async ValueTask<T?> ReadAsync(CancellationToken cancellationToken = default)
     {
         await _readSemaphore.WaitAsync(cancellationToken);
         _queue.TryDequeue(out var item);
